@@ -1,18 +1,28 @@
 import discord
+from discord.ext import commands
 import os
+from dotenv import load_dotenv
+load_dotenv()
 
-client = discord.Client()
+
+intents = discord.Intents().all()
+client = commands.Bot(command_prefix='/',intents=intents)
 
 @client.event
 async def on_ready():
-    print('We have logged in as {0.user}'.format(client))
+    print('The bot is ready to teach you')
 
-@client.event
-async def on_message(message):
-    if message.author == client.user:
-        return
+@client.command()
+async def hello(ctx):
+    print('hello there, what can i do for you?')
+    await ctx.send('Thank you for your command, what can i do for you?')
 
-    if message.content.startswith('$hello'):
-        await message.channel.send('Hello!')
+@client.command()
+async def tellmeabout(ctx,arg):
+    await ctx.send('Sure. I will send you the info about '+ str(arg))
+
+@client.command()
+async def quiz(ctx,arg):
+    await ctx.send('Sure, i\'ll quiz you on the same')
 
 client.run(os.getenv('TOKEN'))
