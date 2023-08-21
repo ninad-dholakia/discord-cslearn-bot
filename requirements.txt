@@ -1,3 +1,5 @@
 discord.py
 os
 python-dotenv
+requests
+random

@@ -1,6 +1,6 @@
 import discord
 from discord.ext import commands
-import os
+import os,getgifs
 from dotenv import load_dotenv
 load_dotenv()
 
@@ -24,5 +24,11 @@ async def tellmeabout(ctx,arg):
 @client.command()
 async def quiz(ctx,arg):
     await ctx.send('Sure, i\'ll quiz you on the same')
+
+@client.command()
+async def gif(ctx,*args):
+    print(' '.join(args))
+    gifurl = getgifs.geturl(' '.join(args),10)
+    await ctx.send(gifurl)
 
 client.run(os.getenv('TOKEN'))
